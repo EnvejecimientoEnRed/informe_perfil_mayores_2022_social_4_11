@@ -18,8 +18,7 @@ function setChartHeight(iframe) {
         document.getElementsByClassName('chart__viz')[0].style.height = height - titleBlock - logicBlock - footerBlock - footerTop - containerPadding + 'px';
     } else {
         document.getElementsByClassName('main')[0].style.height = document.getElementsByClassName('main')[0].clientHeight + 'px';
-    }    
-    console.log(pymChild);
+    }
     pymChild.sendHeight();
 }
 

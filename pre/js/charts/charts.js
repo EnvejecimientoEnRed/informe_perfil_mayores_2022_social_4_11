@@ -1,484 +1,189 @@
 //Desarrollo de las visualizaciones
-//import * as d3 from 'd3';
-//import { numberWithCommas2 } from './helpers';
+import * as d3 from 'd3';
+import { numberWithCommas2 } from '../helpers';
 //import { getInTooltip, getOutTooltip, positionTooltip } from './modules/tooltip';
 import { setChartHeight } from '../modules/height';
-import { setChartCanvas, setChartCanvasImage } from '../modules/canvas-image';
+import { setChartCanvas, setChartCanvasImage, setCustomCanvas, setChartCustomCanvasImage } from '../modules/canvas-image';
 import { setRRSSLinks } from '../modules/rrss';
 import { setFixedIframeUrl } from './chart_helpers';
 
-export function initChart4_1(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Formas de convivencia de las personas de 65 y más años por sexo en España';
-    document.getElementById('subtitle').textContent = 'Figura 4.1. Comparativa 2008-2018. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'Eurostat (Distribution of population aged 65 or over by type of household; EU-SILC)';
-    document.getElementById('data-note').textContent = '';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('formas_convivencia_mayores');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('formas_convivencia_mayores');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('formas_convivencia_mayores');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_2(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Evolución del estado civil de las personas de 65 y más años en España';
-    document.getElementById('subtitle').textContent = 'Figura 4.2. Evolución entre 1970 y 2018. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'INE (Censos de Población y Viviendas y EPA)';
-    document.getElementById('data-note').textContent = '';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('evolucion_estado_civil');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('evolucion_estado_civil');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('evolucion_estado_civil');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_3(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Estado civil de las personas mayores al fallecer por sexo en España, 2018';
-    document.getElementById('subtitle').textContent = 'Figura 4.3. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'INE (Defunciones por CCAA, edad, sexo y estado civil)';
-    document.getElementById('data-note').textContent = '';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('estado_civil_fallecimiento');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('estado_civil_fallecimiento');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('estado_civil_fallecimiento');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_4(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Patrones de cuidado informal. Quién cuida a quién en España, 2014';
-    document.getElementById('subtitle').textContent = 'Figura 4.4. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'CIS (Estudio 3.009. Cuidados a dependientes)';
-    document.getElementById('data-note').textContent = 'Este escenario se ha calculado con el cómputo de todas las horas de cuidado provisto y se ha representado en porcentajes. Las flechas indican la cantidad de cuidado aportado por cada uno de los cuatro tipos de cuidador a cada uno de los cuatro tipos de dependientes. No se representan todos los flujos para facilitar la lectura.';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('patrones_cuidado_informal');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('patrones_cuidado_informal');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('patrones_cuidado_informal');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_5(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Distribución porcentual de los cuidadores principales por sexo de la personas mayor que necesita ayuda, 2014';
-    document.getElementById('subtitle').textContent = 'Figura 4.5.';
-    document.getElementById('data-source').textContent = 'CIS (Encuesta 3.009)';
-    document.getElementById('data-note').textContent = '';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('distribucion_cuidadores_principales');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('distribucion_cuidadores_principales');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('distribucion_cuidadores_principales');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_6(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Efectos del cuidado en el empleo por cuidar de familiares incapacitados, 2018';
-    document.getElementById('subtitle').textContent = 'Figura 4.6. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'Eurostat';
-    document.getElementById('data-note').textContent = 'La base de datos utilizados tiene como título "Persons in employment or with previous employment experience by effects of care of incapacitated relatives".';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('efectos_cuidado_personas');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('efectos_cuidado_personas');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('efectos_cuidado_personas');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_7(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Cuidadores de personas dependientes según sexo y edad en España, 2016';
-    document.getElementById('subtitle').textContent = 'Figura 4.7. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'INE (Encuesta de Condiciones de Vida. Módulo 2016: acceso a los servicios)';
-    document.getElementById('data-note').textContent = '';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('cuidadores_de_dependientes');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('cuidadores_de_dependientes');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('cuidadores_de_dependientes');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_8(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Contribuciones de los abuelos y abuelas* a la sociedad española, 2018';
-    document.getElementById('subtitle').textContent = 'Figura 4.8. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'CIS (Barómetro 3207 de marzo de 2018)';
-    document.getElementById('data-note').textContent = 'No todos los mayores son abuelos y abuelas, aunque también contribuyen.';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('contribuciones_abuelos');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('contribuciones_abuelos');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('contribuciones_abuelos');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_9(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Ratio de plazas de residencias de la población de 65 y más años en España, 2019';
-    document.getElementById('subtitle').textContent = 'Figura 4.9. Ratio por cada 100 habitantes de 65 y más años. A nivel autonómico y provincial.';
-    document.getElementById('data-source').textContent = 'Envejecimiento en Red (base de datos de residencias)';
-    document.getElementById('data-note').textContent = '';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('plazas_residenciales');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('plazas_residenciales');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('plazas_residenciales');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_10(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Personas que declaran ser felices según edad. Comparativa España y UE-28, 2018';
-    document.getElementById('subtitle').textContent = 'Figura 4.10. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'Eurostat (Frequency of being happy in the last 4 weeks; EU-SILC)';
-    document.getElementById('data-note').textContent = 'Aquí se representa el % de personas que declara ser feliz la mayor parte del tiempo. Otras categorías no representadas son: a veces, raramente, nunca.';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('personas_felices_europa');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('personas_felices_europa');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('personas_felices_europa');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_11(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Personas que declaran ser felices según edad en España, 2018';
-    document.getElementById('subtitle').textContent = 'Figura 4.11. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'Eurostat (Frequency of being happy in the last 4 weeks; EU-SILC)';
-    document.getElementById('data-note').textContent = 'Aquí se representa el % de personas que declara ser feliz la mayor parte del tiempo. Otras categorías no representadas son: a veces, raramente, nunca.';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('personas_felices_espana');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('personas_felices_espana');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('personas_felices_espana');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_12(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Pirámide de población por nivel de estudios en España, 2011';
-    document.getElementById('subtitle').textContent = 'Figura 4.12. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'INE (Censo de población)';
-    document.getElementById('data-note').textContent = 'Estudios primarios incluye personas sin estudios. Se representan aparte los analfabetos.';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('nivel_estudios_generaciones');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('nivel_estudios_generaciones');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('nivel_estudios_generaciones');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_13(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Evolución del nivel de estudios de las personas de 65 y más años en España';
-    document.getElementById('subtitle').textContent = 'Evolución entre 1970 y 2011. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'INE (Censos de población)';
-    document.getElementById('data-note').textContent = '';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('evolucion_nivel_estudios');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('evolucion_nivel_estudios');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('evolucion_nivel_estudios');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
-}
-
-export function initChart4_14(iframe, position) {
-    //Desarrollo de funciones asociadas al gráfico > Título, subtítulo, notas, fuente de datos
-    document.getElementById('title').textContent = 'Evolución del porcentaje de personas que han utilizado internet en los últimos tres meses en España por grupo de edad';
-    document.getElementById('subtitle').textContent = 'Figura 4.14. Evolución entre 2007 y 2020. Datos en porcentajes.';
-    document.getElementById('data-source').textContent = 'INE (Encuesta sobre equipamiento y uso de Tecnologías de la Información y la Comunicación)';
-    document.getElementById('data-note').textContent = 'Uso de internet durante los últimes 3 meses';
-
-    //Desarrollo del gráfico   
-
-
-    //Animación del gráfico
-    document.getElementById('replay').addEventListener('click', function() {
-        animateChart();
-    });
-
-    //Iframe
-    setFixedIframeUrl('uso_internet');
-
-    //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
-    setRRSSLinks('uso_internet');
-
-    //Captura de pantalla de la visualización
-    setChartCanvas();
-
-    let pngDownload = document.getElementById('pngImage');
-
-    pngDownload.addEventListener('click', function(){
-        setChartCanvasImage('uso_internet');
-    });
-
-    //Altura del frame
-    setChartHeight(iframe);
+//Colores fijos
+const COLOR_PRIMARY_1 = '#F8B05C', 
+COLOR_PRIMARY_2 = '#E37A42', 
+COLOR_ANAG_1 = '#D1834F', 
+COLOR_ANAG_2 = '#BF2727', 
+COLOR_COMP_1 = '#528FAD', 
+COLOR_COMP_2 = '#AADCE0', 
+COLOR_GREY_1 = '#B5ABA4', 
+COLOR_GREY_2 = '#64605A', 
+COLOR_OTHER_1 = '#B58753', 
+COLOR_OTHER_2 = '#731854';
+
+export function initChart(iframe) {
+    //Lectura de datos
+    d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_social_4_12/main/data/piramide_estudios_censo_2011.csv', function(error,data) {
+        if (error) throw error;
+        
+        //Pirámide con datos absolutos
+        let currentType = 'Total';
+
+        ///Valores iniciales de altura, anchura y márgenes
+        let margin = {top: 20, right: 30, bottom: 40, left: 90},
+            width = document.getElementById('chart').clientWidth - margin.left - margin.right,
+            height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
+
+        let svg = d3.select("#chart")
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        let x = d3.scaleLinear()
+            .domain([-5,5])
+            .range([0,width]);
+
+        let xM = d3.scaleLinear()
+            .domain([0,5])
+            .range([width / 2, 0]);
+
+        let xF = d3.scaleLinear()
+            .domain([0,5])
+            .range([width / 2, width]);
+
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        let y = d3.scaleBand()
+            .range([ 0, height ])
+            .domain(data.map(function(item) { return item.Edad; }).reverse())
+            .padding(.1);
+
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+        let pruebaHombres = ['Analfabetos_hombres_porc','Primarios_hombres_porc','Secundarios_hombres_porc','Superiores_hombres_porc','No_aplicable_hombres_porc'];
+
+        let stackedHombres = d3.stack()
+            .keys(pruebaHombres)
+            (data);
+
+        let colorHombres = d3.scaleOrdinal()
+            .domain(pruebaHombres)
+            .range([COLOR_PRIMARY_1, COLOR_COMP_2, COLOR_COMP_1, COLOR_OTHER_1, COLOR_GREY_1]);
+
+        let pruebaMujeres = ['Analfabetos_mujeres_porc','Primarios_mujeres_porc','Secundarios_mujeres_porc','Superiores_mujeres_porc','No_aplicable_mujeres_porc'];
+
+        let stackedMujeres = d3.stack()
+            .keys(pruebaMujeres)
+            (data);
+
+        let colorMujeres = d3.scaleOrdinal()
+            .domain(pruebaMujeres)
+            .range([COLOR_PRIMARY_1, COLOR_COMP_2, COLOR_COMP_1, COLOR_OTHER_1, COLOR_GREY_1]);
+
+        function init() {
+            svg.append("g")
+                .selectAll(".hombres")
+                .data(stackedHombres)
+                .enter()
+                .append("g")
+                .attr("fill", function(d) { return colorHombres(d.key); })
+                .selectAll("rect")
+                .data(function(d) { return d; })
+                .enter()
+                .append("rect")
+                .attr("height", y.bandwidth())
+                .attr("y", function(d) { return y(d.data.Edad); })
+                .attr("x", function(d) { return xM(Math.abs(d[1])); })
+                .attr("width", function(d) { return Math.abs(xM(d[1]) - xM(d[0]));});
+
+            svg.append("g")
+                .selectAll(".mujeres")
+                .data(stackedMujeres)
+                .enter()
+                .append("g")
+                .attr("fill", function(d) { return colorMujeres(d.key); })
+                .selectAll("rect")
+                .data(function(d) { return d; })
+                .enter()
+                .append("rect")
+                .attr("height", y.bandwidth())
+                .attr("y", function(d) { return y(d.data.Edad); })
+                .attr("x", function(d) { return xF(d[0]); })
+                .attr("width", function(d) { return xF(d[1]) - xF(d[0]); });
+        }
+
+        function setChart(type) {
+            if(type != currentType) {
+                if (type == 'Total') {
+                } else {
+                }
+            }            
+        }
+
+        /////
+        /////
+        // Resto - Chart
+        /////
+        /////
+        init();
+
+        //Uso de dos botones para ofrecer datos absolutos y en miles
+        document.getElementById('data_absolutos').addEventListener('click', function() {
+            //Cambiamos color botón
+            document.getElementById('data_porcentajes').classList.remove('active');
+            document.getElementById('data_absolutos').classList.add('active');
+
+            //Cambiamos gráfico
+            setChart('Total');
+
+            //Cambiamos valor actual
+            currentType = 'Total';
+        });
+
+        document.getElementById('data_porcentajes').addEventListener('click', function() {
+            //Cambiamos color botón
+            document.getElementById('data_porcentajes').classList.add('active');
+            document.getElementById('data_absolutos').classList.remove('active');
+
+            //Cambiamos gráfico
+            setChart('porc_total');
+
+            //Cambiamos valor actual
+            currentType = 'Porcentual';
+        });
+        
+        //Animación del gráfico
+        document.getElementById('replay').addEventListener('click', function() {
+            animateChart();
+        });
+
+        /////
+        /////
+        // Resto
+        /////
+        /////
+
+        //Iframe
+        setFixedIframeUrl('informe_perfil_mayores_2022_social_4_12','nivel_estudios_generaciones');
+
+        //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
+        setRRSSLinks('nivel_estudios_generaciones');
+
+        //Captura de pantalla de la visualización
+        setChartCanvas();
+        setCustomCanvas();
+
+        let pngDownload = document.getElementById('pngImage');
+
+        pngDownload.addEventListener('click', function(){
+            setChartCanvasImage('nivel_estudios_generaciones');
+            setChartCustomCanvasImage('nivel_estudios_generaciones');
+        });
+
+        //Altura del frame
+        setChartHeight(iframe);        
+    });    
 }

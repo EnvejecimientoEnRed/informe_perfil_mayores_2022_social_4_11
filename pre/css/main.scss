@@ -62,12 +62,21 @@ body, button {
 //Contenedores genéricos > En su interior, elementos propios de cada contenedor
 .b-chart {
     .chart {
+        //Podemos tener: selectores múltiples, selectores sencillos, 2-3 botones o un slider-range
         &__logics {            
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
         }
+
+        &__logics--bis { //Botones adicionales para animar el gráfico
+            display: flex;
+            justify-content: center;
+
+            margin-top: 8px;
+        }
         
+        //Debajo de todos los elementos lógicos tendremos la leyenda > Puede haber de 1 a 7 elementos dentro de la leyenda
         &__legend {
             margin-top: 8px;
             display: flex;
@@ -94,29 +103,26 @@ body, button {
                     left: 0;
                     transform: translateY(-50%);
                     width: 18px;
-                    height: 2px;
+                    height: 2.5px;
                 }
 
-                &.first::before {
-                    background-color: #C36B6B;
-                }
-
-                &.second::before {
-                    background-color: #C3A66B;
-                }
-
-                &.third::before {
-                    background-color: #296161;
-                }
+                &.primary_1::before { background-color: #F8B05C; }
+                &.primary_2::before { background-color: #E37A42; }
+                &.anag_1::before { background-color: #D1834F; }
+                &.anag_2::before { background-color: #BF2727; }
+                &.comp_1::before { background-color: #528FAD; }
+                &.comp_2::before { background-color: #AADCE0; }
+                &.grey_1::before { background-color: #B5ABA4; }
+                &.grey_2::before { background-color: #64605A; }
+                &.other_1::before { background-color: #B58753; }
+                &.other_2::before { background-color: #731854; }
             }
         }        
 
         //Visualización
         &__viz {
-            height: 420px;
+            height: 460px;
             margin-top: 12px;
-
-            background-color: #c3c3c3;
 
             & .tick text {
                 font-family: 'Titillium Web';
@@ -154,6 +160,7 @@ body, button {
 
                 &--data {
                     margin-right: 16px;
+                    width: 85%;
                 }
 
                 &--data span:first-of-type {
@@ -209,7 +216,6 @@ body, button {
 
 //Estilos para botones
 .btn {
-    //Estilos genéricos
     margin-top: 8px;
     cursor: pointer;
     
@@ -225,7 +231,8 @@ body, button {
         height: auto;
         min-height: 32px;
 
-        border: 1.2px solid;       
+        border: 1.2px solid;
+        background-color: #fcfcfc;      
 
         &.active {
             background-color: #fff;
@@ -234,11 +241,27 @@ body, button {
 
     &__animate {
         height: 32px;
-        border: 1.2px solid #41C0B4;
+        border: 1.2px solid #E37A42;
         
         img {
             margin-right: 3px;
         }
+    }
+
+    &__chart {
+        cursor: pointer;
+        width: auto;
+        max-width: 120px;
+        height: 32px;
+        border: 0.6px solid #E37A42;
+        background-color: #d4d4d4;
+
+        &.active {
+            background-color: #fff;
+        }
+
+        &:first-of-type {margin-right: 8px;}
+        &:last-of-type {margin-left: 8px;}
     }
 }
 
@@ -270,14 +293,14 @@ body, button {
 }
 
 .link {
-    border-bottom: 2px solid #4E7E7E;
+    border-bottom: 2px solid #F8B05C;
     color: #000;
     text-decoration: none;
 }
 
 .btn_share {
-    background-color: #e1e1e1;
-    border: 2px solid #4E7E7E;
+    background-color: #fcfcfc;
+    border: 2px solid #F8B05C;
     padding: 0px 8px;
     border-radius: 3px;
 
@@ -298,7 +321,7 @@ body, button {
 //Pestañas inferiores
 .tabs {
     width: 100%;
-    height: 32px;
+    height: 28px;
 
     .l-tabs {
         width: 100%;
@@ -332,7 +355,7 @@ body, button {
             cursor: pointer;
 
             //Estilo
-            background-color: #fafbfd;
+            background-color: #fcfcfc;
             color: #000;
 
             //Estado active
@@ -341,7 +364,7 @@ body, button {
                 color: #000;
 
                 border-top: 0px;
-                border-bottom: 2px solid #4E7E7E;
+                border-bottom: 2px solid #F8B05C;
             }
         }        
     }
@@ -356,7 +379,7 @@ body, button {
     max-width: 135px;
     height: auto;
     padding: 8px;
-    background-color: #F4F4F4;
+    background-color: #fcfcfc;
 
     &--title {
         font-style: normal;
