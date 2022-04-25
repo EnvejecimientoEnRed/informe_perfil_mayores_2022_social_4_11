@@ -17,8 +17,8 @@ let tooltip = d3.select('#tooltip');
 //Diccionario
 let dictionary = {
     analfabetos: 'Analfabetos',
-    primaria: 'Estudios primarios (y sin estudios)',
-    secundaria: 'Estudios secundarios',
+    primarios: 'Estudios primarios (y sin estudios)',
+    secundarios: 'Estudios secundarios',
     superiores: 'Tercer grado y estudios superiores',
     noaplicable: 'No aplicable'   
 };
@@ -71,7 +71,7 @@ export function initChart(iframe) {
 
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .attr('class','x-axis')
+            .attr('class','xaxis')
             .call(xAxis);
 
         let y = d3.scaleBand()
@@ -87,32 +87,58 @@ export function initChart(iframe) {
         svg.append("g")
             .call(yAxis);
 
-        let pruebaHombres = ['analfabetos_hombres_porc','primarios_hombres_porc','secundarios_hombres_porc','superiores_hombres_porc','no_aplicable_hombres_porc'];
+        //Hombres
+        let porcHombres = ['analfabetos_hombres_porc','primarios_hombres_porc','secundarios_hombres_porc','superiores_hombres_porc','noaplicable_hombres_porc'];
+        let absHombres = ['analfabetos_hombres_abs','primarios_hombres_abs','secundarios_hombres_abs','superiores_hombres_abs','noaplicable_hombres_abs'];
 
-        let stackedHombres = d3.stack()
-            .keys(pruebaHombres)
+        let stackedHombresPorc = d3.stack()
+            .keys(porcHombres)
+            (data);
+
+        let stackedHombresAbs = d3.stack()
+            .keys(absHombres)
             (data);
 
         let colorHombres = d3.scaleOrdinal()
-            .domain(pruebaHombres)
+            .domain(porcHombres)
             .range([COLOR_PRIMARY_1, COLOR_ANAG_PRIM_1, COLOR_ANAG_PRIM_2, COLOR_ANAG_PRIM_3, COLOR_GREY_1]);
 
-        let pruebaMujeres = ['analfabetos_mujeres_porc','primarios_mujeres_porc','secundarios_mujeres_porc','superiores_mujeres_porc','no_aplicable_mujeres_porc'];
+        //Mujeres
+        let porcMujeres = ['analfabetos_mujeres_porc','primarios_mujeres_porc','secundarios_mujeres_porc','superiores_mujeres_porc','noaplicable_mujeres_porc'];
+        let absMujeres = ['analfabetos_mujeres_abs','primarios_mujeres_abs','secundarios_mujeres_abs','superiores_mujeres_abs','noaplicable_mujeres_abs'];
 
-        let stackedMujeres = d3.stack()
-            .keys(pruebaMujeres)
+        let stackedMujeresPorc = d3.stack()
+            .keys(porcMujeres)
+            (data);
+
+        let stackedMujeresAbs = d3.stack()
+            .keys(absMujeres)
             (data);
 
         let colorMujeres = d3.scaleOrdinal()
-            .domain(pruebaMujeres)
+            .domain(porcMujeres)
             .range([COLOR_PRIMARY_1, COLOR_ANAG_PRIM_1, COLOR_ANAG_PRIM_2, COLOR_ANAG_PRIM_3, COLOR_GREY_1]);
 
-        function init() {
+        function setPyramids(type) {
+            let dataHombres, dataMujeres;
+            if(type == 'Porcentajes') {
+                dataHombres = stackedHombresPorc;
+                dataMujeres = stackedMujeresPorc;
+            } else {
+                dataHombres = stackedHombresAbs;
+                dataMujeres = stackedMujeresAbs;
+            }
+
+            colorHombres.domain(dataHombres);
+            colorMujeres.domain(dataMujeres);
+
+            console.log(type, xM.domain(), dataHombres);
+            
             //Hombres
             svg.append("g")
                 .attr('class', 'chart-g')
                 .selectAll(".hombres")
-                .data(stackedHombres)
+                .data(dataHombres)
                 .enter()
                 .append("g")
                 .attr("fill", function(d) { return colorHombres(d.key); })
@@ -144,12 +170,10 @@ export function initChart(iframe) {
                         }
                     });
 
-                    console.log(d, parentClass);
-
                     //Texto en tooltip
                     let html = '<p class="chart__tooltip--title">Edad: ' + d.data.Edad + '</p>' + 
-                        '<p class="chart__tooltip--title_2">Nivel de estudios: ' + d.data.Edad + '</p>' +
-                        '<p class="chart__tooltip--text">Un x% de la población con esta edad tiene este nivel de estudios en el Censo de 2011</p>';
+                        '<p class="chart__tooltip--title_2">' + dictionary[parentClass.split('-')[1]] + '</p>' +
+                        '<p class="chart__tooltip--text">Un ' + numberWithCommas3(Math.abs(parseFloat(d.data[`${parentClass.split('-')[1]}_hombres_porc`]).toFixed(2))) + '% de la población total (o ' + numberWithCommas3(Math.abs(d.data[`${parentClass.split('-')[1]}_hombres_abs`])) + ' hombres) tiene este nivel de estudios en el Censo de 2011 en España</p>';
                 
                     tooltip.html(html);
 
@@ -176,7 +200,7 @@ export function initChart(iframe) {
             svg.append("g")
                 .attr('class', 'chart-g')
                 .selectAll(".mujeres")
-                .data(stackedMujeres)
+                .data(dataMujeres)
                 .enter()
                 .append("g")
                 .attr("fill", function(d) { return colorMujeres(d.key); })
@@ -192,7 +216,43 @@ export function initChart(iframe) {
                 .attr("y", function(d) { return y(d.data.Edad); })
                 .attr("x", function(d) { return x(0); })
                 .attr("width", 0)
+                .on('mouseover', function(d,i,e) {
+                    //Opacidad en barras
+                    let parentClass = e[i].parentNode.getAttribute('class').split(' ')[1];
+                    let parents = svg.selectAll(`.${parentClass}`);
+                    let others = svg.selectAll('.rect');                    
+            
+                    others.each(function() {
+                        this.style.opacity = '0.4';
+                    });
+                    parents.each(function() {
+                        let items = this.getElementsByClassName('rect');
+                        for(let i = 0; i < items.length; i++) {
+                            items[i].style.opacity = 1;
+                        }
+                    });
 
+                    //Texto en tooltip
+                    let html = '<p class="chart__tooltip--title">Edad: ' + d.data.Edad + '</p>' + 
+                        '<p class="chart__tooltip--title_2">' + dictionary[parentClass.split('-')[1]] + '</p>' +
+                        '<p class="chart__tooltip--text">Un ' + numberWithCommas3(Math.abs(parseFloat(d.data[`${parentClass.split('-')[1]}_mujeres_porc`]).toFixed(2))) + '% de la población total (o ' + numberWithCommas3(Math.abs(d.data[`${parentClass.split('-')[1]}_mujeres_abs`])) + ' mujeres) tiene este nivel de estudios en el Censo de 2011 en España</p>';
+                
+                    tooltip.html(html);
+
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos los estilos de la línea
+                    let bars = svg.selectAll('.rect');
+                    bars.each(function() {
+                        this.style.opacity = '1';
+                    });
+                
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .duration(2000)
                 .attr("x", function(d) { return xF(d[0]); })
@@ -207,21 +267,22 @@ export function initChart(iframe) {
             if(type != currentType || animate) {
                 if (type == 'Absolutos') {
 
-                    x.domain([-500000,500000]);
-                    svg.select(".x-axis").call(xAxis);                
-                    xM.domain([0,500000]);
-                    xF.domain([0,500000]);
+                    x.domain([-2500000,2500000]);
+                    svg.select(".xaxis").call(xAxis);                
+                    xM.domain([0,2500000]);
+                    xF.domain([0,2500000]);
 
                 } else {
 
                     x.domain([-5,5]);
-                    svg.select(".x-axis").call(xAxis);                
+                    svg.select(".xaxis").call(xAxis);                
                     xM.domain([0,5]);
                     xF.domain([0,5]);
 
                 }
 
-                init();
+                currentType = type;                
+                setPyramids(currentType);
             }            
         }
 
@@ -234,7 +295,7 @@ export function initChart(iframe) {
         // Resto - Chart
         /////
         /////
-        init();
+        setPyramids(currentType);
 
         //Uso de dos botones para ofrecer datos absolutos y en miles
         document.getElementById('data_absolutos').addEventListener('click', function() {
@@ -247,9 +308,6 @@ export function initChart(iframe) {
 
             //Cambiamos gráfico
             setChart('Absolutos');
-
-            //Cambiamos valor actual
-            currentType = 'Absolutos';
         });
 
         document.getElementById('data_porcentajes').addEventListener('click', function() {
@@ -262,9 +320,6 @@ export function initChart(iframe) {
 
             //Cambiamos gráfico
             setChart('Porcentajes');
-
-            //Cambiamos valor actual
-            currentType = 'Porcentajes';
         });
         
         //Animación del gráfico

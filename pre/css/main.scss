@@ -441,7 +441,7 @@ button {
     position: absolute;
     opacity: 0;   
 
-    width: 135px;
+    width: 150px;
     height: auto;
     padding: 8px;
     background-color: #fffaf0;
@@ -452,6 +452,16 @@ button {
         font-size: 12px;
         line-height: 1.1;
         color: #262626;
+    }
+
+    &--title_2 {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 1.1;
+        color: #262626;
+
+        margin-top: 4px;
     }
 
     &--text {
