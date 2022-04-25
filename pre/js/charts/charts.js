@@ -14,6 +14,15 @@ COLOR_ANAG_PRIM_3 = '#9E3515',
 COLOR_GREY_1 = '#D6D6D6';
 let tooltip = d3.select('#tooltip');
 
+//Diccionario
+let dictionary = {
+    analfabetos: 'Analfabetos',
+    primaria: 'Estudios primarios (y sin estudios)',
+    secundaria: 'Estudios secundarios',
+    superiores: 'Tercer grado y estudios superiores',
+    noaplicable: 'No aplicable'   
+};
+
 export function initChart(iframe) {
     //Lectura de datos
     d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_social_4_11/main/data/piramide_estudios_censo_2011.csv', function(error,data) {
@@ -108,25 +117,39 @@ export function initChart(iframe) {
                 .append("g")
                 .attr("fill", function(d) { return colorHombres(d.key); })
                 .attr('class', function(d) {
-                    return 'grupo grupo-' + d.key;
+                    return 'grupo grupo-' + d.key.split('_')[0];
                 })
                 .selectAll("rect")
                 .data(function(d) { return d; })
                 .enter()
                 .append("rect")
+                .attr('class', 'rect')
                 .attr("height", y.bandwidth())
                 .attr("y", function(d) { return y(d.data.Edad); })
                 .attr("x", function(d) { return x(0); })
                 .attr("width", 0)
                 .on('mouseover', function(d,i,e) {
-                    //Dibujo contorno de la rect
-                    this.style.stroke = '#000';
-                    this.style.strokeWidth = '1';
+                    //Opacidad en barras
+                    let parentClass = e[i].parentNode.getAttribute('class').split(' ')[1];
+                    let parents = svg.selectAll(`.${parentClass}`);
+                    let others = svg.selectAll('.rect');                    
+            
+                    others.each(function() {
+                        this.style.opacity = '0.4';
+                    });
+                    parents.each(function() {
+                        let items = this.getElementsByClassName('rect');
+                        for(let i = 0; i < items.length; i++) {
+                            items[i].style.opacity = 1;
+                        }
+                    });
+
+                    console.log(d, parentClass);
 
                     //Texto en tooltip
-                    let html = '<p class="chart__tooltip--title">' + d.Sexo + ' (' + d.Edad + ' años)</p>' + 
-                        '<p class="chart__tooltip--title_2">Tipo: ' + d.Tipo + '</p>' +
-                        '<p class="chart__tooltip--text">Número absoluto de personas: ' + numberWithCommas3(parseInt(d.Valor))+ '</p>';
+                    let html = '<p class="chart__tooltip--title">Edad: ' + d.data.Edad + '</p>' + 
+                        '<p class="chart__tooltip--title_2">Nivel de estudios: ' + d.data.Edad + '</p>' +
+                        '<p class="chart__tooltip--text">Un x% de la población con esta edad tiene este nivel de estudios en el Censo de 2011</p>';
                 
                     tooltip.html(html);
 
@@ -135,11 +158,13 @@ export function initChart(iframe) {
                     getInTooltip(tooltip);
                 })
                 .on('mouseout', function(d,i,e) {
-                    //Fuera contorno
-                    this.style.stroke = 'none';
-                    this.style.strokeWidth = '0';
-
-                    //Fuera tooltip
+                    //Quitamos los estilos de la línea
+                    let bars = svg.selectAll('.rect');
+                    bars.each(function() {
+                        this.style.opacity = '1';
+                    });
+                
+                    //Quitamos el tooltip
                     getOutTooltip(tooltip);
                 })
                 .transition()
@@ -155,38 +180,19 @@ export function initChart(iframe) {
                 .enter()
                 .append("g")
                 .attr("fill", function(d) { return colorMujeres(d.key); })
+                .attr('class', function(d) {
+                    return 'grupo grupo-' + d.key.split('_')[0];
+                })
                 .selectAll("rect")
                 .data(function(d) { return d; })
                 .enter()
                 .append("rect")
+                .attr('class', 'rect')
                 .attr("height", y.bandwidth())
                 .attr("y", function(d) { return y(d.data.Edad); })
                 .attr("x", function(d) { return x(0); })
                 .attr("width", 0)
-                .on('mouseover', function(d,i,e) {
-                    //Dibujo contorno de la rect
-                    this.style.stroke = '#000';
-                    this.style.strokeWidth = '1';
 
-                    //Texto en tooltip
-                    let html = '<p class="chart__tooltip--title">' + d.Sexo + ' (' + d.Edad + ' años)</p>' + 
-                        '<p class="chart__tooltip--title_2">Tipo: ' + d.Tipo + '</p>' +
-                        '<p class="chart__tooltip--text">Número absoluto de personas: ' + numberWithCommas3(parseInt(d.Valor))+ '</p>';
-                
-                    tooltip.html(html);
-
-                    //Tooltip
-                    positionTooltip(window.event, tooltip);
-                    getInTooltip(tooltip);
-                })
-                .on('mouseout', function(d,i,e) {
-                    //Fuera contorno
-                    this.style.stroke = 'none';
-                    this.style.strokeWidth = '0';
-
-                    //Fuera tooltip
-                    getOutTooltip(tooltip);
-                })
                 .transition()
                 .duration(2000)
                 .attr("x", function(d) { return xF(d[0]); })
