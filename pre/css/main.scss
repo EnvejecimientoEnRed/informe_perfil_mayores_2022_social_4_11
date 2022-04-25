@@ -5,11 +5,19 @@
     box-sizing: border-box;
 }
 
-body, button {
+body {
     font-family: 'Montserrat', sans-serif;
 
     //Tamaño de elementos para utilizar EMs posteriormente
     font-size: 16px;
+    line-height: 1.25em;
+}
+
+button {
+    font-family: 'Montserrat', sans-serif;
+
+    //Tamaño de elementos para utilizar EMs posteriormente
+    font-size: 0.85em;
     line-height: 1.25em;
 }
 
@@ -66,7 +74,7 @@ body, button {
         &__logics {            
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
+            align-items: center;
         }
 
         &__logics--bis { //Botones adicionales para animar el gráfico
@@ -74,15 +82,20 @@ body, button {
             justify-content: center;
 
             margin-top: 8px;
+
+            .btn__chart:last-child {
+                margin-left: 16px;
+            }
         }
         
         //Debajo de todos los elementos lógicos tendremos la leyenda > Puede haber de 1 a 7 elementos dentro de la leyenda
         &__legend {
-            margin-top: 8px;
             display: flex;
+            flex-wrap: wrap;            
 
             &--item {
                 position: relative;
+                margin-top: 8px;
 
                 display: flex;
                 align-items: center;
@@ -103,51 +116,75 @@ body, button {
                     left: 0;
                     transform: translateY(-50%);
                     width: 18px;
-                    height: 2.5px;
+                    height: 6px;
                 }
 
                 &.primary_1::before { background-color: #F8B05C; }
                 &.primary_2::before { background-color: #E37A42; }
-                &.anag_1::before { background-color: #D1834F; }
-                &.anag_2::before { background-color: #BF2727; }
                 &.comp_1::before { background-color: #528FAD; }
                 &.comp_2::before { background-color: #AADCE0; }
-                &.grey_1::before { background-color: #B5ABA4; }
-                &.grey_2::before { background-color: #64605A; }
-                &.other_1::before { background-color: #B58753; }
-                &.other_2::before { background-color: #731854; }
+                &.grey_1::before { background-color: #D6D6D6; }
+                &.grey_2::before { background-color: #A3A3A3; }
+                &.anag_prim_1::before { background-color: #BA9D5F;}
+                &.anag_prim_2::before { background-color: #9E6C51 ;}
+                &.anag_prim_3::before { background-color: #9E3515 ;}
+                &.anag_comp_1::before { background-color: #1C5A5E;}
             }
-        }        
+        }       
 
         //Visualización
         &__viz {
-            height: 460px;
-            margin-top: 12px;
+            height: auto;
+            margin-top: 8px;
 
-            & .tick text {
-                font-family: 'Montserrat';
-                font-style: normal;
-                font-weight: 300;
-                font-size: 12px;
-                line-height: 10px;
-            
-                color: #A3A3A3;
-            }
+            .chart--y_text {
+                display: flex;
 
-            .domain {
-                stroke: #262626;
-                stroke-width: 1px;
-            }
-            
-            & .tick line {
-                stroke: #262626;
-                stroke-width: 0.5px;
-            }
-            
-            & .line-special {
-                stroke: #000 !important;
-                stroke-width: 0.5px !important;
-            }
+                p:first-of-type {
+                    width: 70px;
+                    text-align: center;
+                }
+
+                .chart--text {
+                    display: flex;
+                    justify-content: space-around;
+    
+                    width: 100%;
+                    margin-right: 25px;
+                }
+            }            
+
+            .chart--viz {
+                height: auto;                
+
+                & .tick text {
+                    font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: 300;
+                    font-size: 12px;
+                    line-height: 10px;
+                
+                    color: #A3A3A3;
+                }
+
+                .domain {
+                    stroke: #262626;
+                    stroke-width: 1px;
+                }
+                
+                & .tick line {
+                    stroke: #262626;
+                    opacity: 0.7;
+                    stroke-dasharray: 5;
+                    stroke-width: 0.5px;
+                }
+                
+                & .line-special {
+                    stroke: #000 !important;
+                    stroke-dasharray: 0 !important;
+                    stroke-width: 1px !important;
+                }
+            }            
         }
 
         //Pie
@@ -204,7 +241,6 @@ body, button {
     width: 100%;
     max-width: calc(100% - 100px);
     min-height: 65px;
-    margin-bottom: 8px;
 
     .title {
         font-size: 1em;
@@ -229,7 +265,7 @@ body, button {
 
     width: auto;
     padding: 0px 6px;
-    font-size: 0.85rem;
+    font-size: 0.85em;
     border-radius: 3px;
 
     &__option {
@@ -237,10 +273,14 @@ body, button {
         min-height: 32px;
 
         border: 1.2px solid;
-        background-color: #fcfcfc;      
+        color: #262626;
+        background-color: #c0e1e2;       
+        &:hover { background-color: #cacbcd; }
 
         &.active {
-            background-color: #fff;
+            background-color: #1b1c1d;
+            color: #fff;
+            &:hover { background-color: #27292a; }   
         }
     }
 
@@ -258,11 +298,15 @@ body, button {
         width: auto;
         max-width: 120px;
         height: 32px;
-        border: 0.6px solid #E37A42;
-        background-color: #d4d4d4;
+        border: 0px;
+        color: #262626;
+        background-color: #e0e1e2;       
+        &:hover { background-color: #cacbcd; }
 
         &.active {
-            background-color: #fff;
+            background-color: #1b1c1d;
+            color: #fff;
+            &:hover { background-color: #27292a; }   
         }
 
         &:first-of-type {margin-right: 8px;}
@@ -294,6 +338,23 @@ body, button {
         & + .text__header {
             margin-top: 24px;
         }
+    }
+
+    &__yaxis {
+        font-size: 0.8em;
+        line-height: 1.25em;
+        font-weight: 400;
+        color: #262626;
+    }
+
+    &__xaxis {
+        font-size: 0.8em;
+        line-height: 1.25em;
+        font-weight: 400;
+        color: #262626;
+        text-align: center;
+
+        margin-left: 45px;
     }
 }
 
@@ -380,26 +441,25 @@ body, button {
     position: absolute;
     opacity: 0;   
 
-    width: auto;
-    max-width: 135px;
+    width: 135px;
     height: auto;
     padding: 8px;
-    background-color: #fcfcfc;
+    background-color: #fffaf0;
 
     &--title {
         font-style: normal;
         font-weight: 700;
         font-size: 12px;
         line-height: 1.1;
-        color: #000;
+        color: #262626;
     }
 
     &--text {
         font-style: normal;
-        font-weight: 300;
+        font-weight: 400;
         font-size: 12px;
         line-height: 1.1;
-        color: #000;
+        color: #262626;
 
         margin-top: 4px;
     }
@@ -416,11 +476,5 @@ body, button {
 
     .b-rrss {
         width: 80%;
-    }
-}
-
-@media screen and (max-width: 475px) {
-    body {
-        font-size: 14.5px;
     }
 }

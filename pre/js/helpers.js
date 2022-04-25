@@ -45,10 +45,6 @@ function percentageOfElement(el){
     return Math.min(100, Math.max(0, percentage));
 }
 
-function getNumberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
-
 function numberWithCommas(x) {
     return x.toString().replace(/\./g, ',');       
 }
@@ -57,4 +53,8 @@ function numberWithCommas2(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");       
 }
 
-export { isMobile, isSmallMobile, isDevice, isElementInViewport, percentageOfElement, getNumberWithCommas, numberWithCommas, numberWithCommas2 };
+function numberWithCommas3(x) {
+    return x.toString().replace(/\./g, ',').replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
+}
+
+export { isMobile, isSmallMobile, isDevice, isElementInViewport, percentageOfElement, numberWithCommas, numberWithCommas2, numberWithCommas3 };
