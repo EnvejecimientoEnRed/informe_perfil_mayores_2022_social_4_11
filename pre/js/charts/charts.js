@@ -23,7 +23,7 @@ let dictionary = {
     noaplicable: 'No aplicable'   
 };
 
-export function initChart(iframe) {
+export function initChart() {
     //Lectura de datos
     d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_social_4_11/main/data/piramide_estudios_censo_2011.csv', function(error,data) {
         if (error) throw error;
@@ -308,6 +308,10 @@ export function initChart(iframe) {
 
             //Cambiamos gráfico
             setChart('Absolutos');
+
+            setTimeout(() => {
+                setChartCanvas();
+            }, 4000);
         });
 
         document.getElementById('data_porcentajes').addEventListener('click', function() {
@@ -320,11 +324,19 @@ export function initChart(iframe) {
 
             //Cambiamos gráfico
             setChart('Porcentajes');
+
+            setTimeout(() => {
+                setChartCanvas();
+            }, 4000);
         });
         
         //Animación del gráfico
         document.getElementById('replay').addEventListener('click', function() {
             animateChart();
+
+            setTimeout(() => {
+                setChartCanvas();
+            }, 4000);
         });
 
         /////
@@ -340,7 +352,9 @@ export function initChart(iframe) {
         setRRSSLinks('nivel_estudios_generaciones');
 
         //Captura de pantalla de la visualización
-        setChartCanvas();
+        setTimeout(() => {
+            setChartCanvas();
+        }, 4000);
 
         let pngDownload = document.getElementById('pngImage');
 
@@ -349,6 +363,6 @@ export function initChart(iframe) {
         });
 
         //Altura del frame
-        setChartHeight(iframe);        
+        setChartHeight();        
     });    
 }

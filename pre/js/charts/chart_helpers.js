@@ -1,9 +1,9 @@
 export function setFixedIframeUrl(chart, title) {
     //Iframe fijo
     let id1 = document.getElementById('iframe-fixed');
-    id1.innerHTML = `<iframe src="https://CarlosMunozDiazCSIC/${chart}/?iframe=fixed" style="height:680px;width:100%;" title="${title}"></iframe>`;
+    id1.innerHTML = `<iframe src="https://CarlosMunozDiazCSIC/${chart}/" style="height:720px;width:100%;" title="${title}"></iframe>`;
     
     //Iframe responsive
     let id2 = document.getElementById('iframe-responsive');
-    id2.innerHTML = `<div id="viz_cchs_informe_perfil_mayores_2022"></div><script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script><script>let pymParent = new pym.Parent('viz_cchs_informe_perfil_mayores_2022', 'https://CarlosMunozDiazCSIC.github.io/${chart}/?iframe=responsive', {});</script>`;
+    id2.innerHTML = `<div id="viz_cchs_informe_perfil_mayores_2022"></div><script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script><script>let pymParent = new pym.Parent('viz_cchs_informe_perfil_mayores_2022', 'https://CarlosMunozDiazCSIC.github.io/${chart}/', {});</script>`;
 }

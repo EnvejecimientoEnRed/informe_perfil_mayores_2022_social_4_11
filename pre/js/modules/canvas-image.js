@@ -2,7 +2,7 @@ import html2canvas from 'html2canvas';
 let innerCanvas;
 
 function setChartCanvas() {
-    html2canvas(document.querySelector("#chartBlock"), {width: document.querySelector("#chartBlock").clientWidth, height: document.querySelector("#chartBlock").clientHeight, imageTimeout: 8000, useCORS: true}).then(canvas => { innerCanvas = canvas; });
+    html2canvas(document.querySelector("#chartBlock"), {width: document.querySelector("#chartBlock").clientWidth, height: document.querySelector("#chartBlock").clientHeight, imageTimeout: 3000, useCORS: true}).then(canvas => { innerCanvas = canvas; });
 }
 
 function setChartCanvasImage(title) {    
