@@ -11,7 +11,7 @@ const COLOR_PRIMARY_1 = '#F8B05C',
 COLOR_ANAG_PRIM_1 = '#BA9D5F', 
 COLOR_ANAG_PRIM_2 = '#9E6C51',
 COLOR_ANAG_PRIM_3 = '#9E3515',
-COLOR_GREY_1 = '#D6D6D6';
+COLOR_GREY_1 = '#A3A3A3';
 let tooltip = d3.select('#tooltip');
 
 //Diccionario
