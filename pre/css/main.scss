@@ -214,17 +214,17 @@ button {
                 justify-content: space-between;
                 flex-wrap: wrap;
 
-                &--data, &--copyright {
+                &--info {
                     margin-top: 8px;
+                    width: calc(100% - 80px);
+                    .chart__source--data span:first-of-type, .chart__source--elab span:first-of-type {
+                        font-weight: 700;
+                    }
                 }
 
-                &--data {
-                    margin-right: 16px;
-                    width: 85%;
-                }
-
-                &--data span:first-of-type {
-                    font-weight: 700;
+                &--copyright {
+                    margin-top: 8px;
+                    width: 68px;
                 }
             }
 
