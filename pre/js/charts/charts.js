@@ -34,7 +34,8 @@ export function initChart() {
         ///Valores iniciales de altura, anchura y márgenes
         let margin = {top: 12.5, right: 25, bottom: 25, left: 70},
             width = document.getElementById('chart').clientWidth - margin.left - margin.right,
-            height = width * 0.67 - margin.top - margin.bottom;
+            auxHeight = width * 0.67 - margin.top - margin.bottom,
+            height = auxHeight < 180 ? 180 : auxHeight;
 
         let svg = d3.select("#chart")
             .append("svg")
@@ -79,8 +80,10 @@ export function initChart() {
             .domain(data.map(function(item) { return item.Edad; }).reverse())
             .padding(.1);
 
+        let edades = document.body.clientWidth < 500 ? 2 : 1;
+
         let yAxis = function(svg) {
-            svg.call(d3.axisLeft(y).tickValues(y.domain().filter(function(d,i){ return !(i%1)})));
+            svg.call(d3.axisLeft(y).tickValues(y.domain().filter(function(d,i){ return !(i%edades)})));
             svg.call(function(g){g.selectAll('.tick line').remove()});
         }
 
@@ -171,7 +174,7 @@ export function initChart() {
                     //Texto en tooltip
                     let html = '<p class="chart__tooltip--title">Edad: ' + d.data.Edad + '</p>' + 
                         '<p class="chart__tooltip--title_2">' + dictionary[parentClass.split('-')[1]] + '</p>' +
-                        '<p class="chart__tooltip--text">Un <b>' + numberWithCommas3(Math.abs(parseFloat(d.data[`${parentClass.split('-')[1]}_hombres_porc`]).toFixed(2))) + '%</b> de la población total (o ' + numberWithCommas3(Math.abs(d.data[`${parentClass.split('-')[1]}_hombres_abs`])) + ' hombres) tiene este nivel de estudios en el Censo de 2011 en España</p>';
+                        '<p class="chart__tooltip--text">Un <b>' + numberWithCommas3(Math.abs(parseFloat(d.data[`${parentClass.split('-')[1]}_hombres_porc`]).toFixed(2))) + '%</b> de la población total (o <b>' + numberWithCommas3(Math.abs(d.data[`${parentClass.split('-')[1]}_hombres_abs`])) + '</b> hombres) tiene este nivel de estudios en el Censo de 2011 en España</p>';
                 
                     tooltip.html(html);
 
@@ -233,7 +236,7 @@ export function initChart() {
                     //Texto en tooltip
                     let html = '<p class="chart__tooltip--title">Edad: ' + d.data.Edad + '</p>' + 
                         '<p class="chart__tooltip--title_2">' + dictionary[parentClass.split('-')[1]] + '</p>' +
-                        '<p class="chart__tooltip--text">Un ' + numberWithCommas3(Math.abs(parseFloat(d.data[`${parentClass.split('-')[1]}_mujeres_porc`]).toFixed(2))) + '% de la población total (o ' + numberWithCommas3(Math.abs(d.data[`${parentClass.split('-')[1]}_mujeres_abs`])) + ' mujeres) tiene este nivel de estudios en el Censo de 2011 en España</p>';
+                        '<p class="chart__tooltip--text">Un <b>' + numberWithCommas3(Math.abs(parseFloat(d.data[`${parentClass.split('-')[1]}_mujeres_porc`]).toFixed(2))) + '%</b> de la población total (o <b>' + numberWithCommas3(Math.abs(d.data[`${parentClass.split('-')[1]}_mujeres_abs`])) + '</b> mujeres) tiene este nivel de estudios en el Censo de 2011 en España</p>';
                 
                     tooltip.html(html);
 
