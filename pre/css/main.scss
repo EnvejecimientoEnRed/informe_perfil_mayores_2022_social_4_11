@@ -239,16 +239,30 @@ button {
                 }
             }
         }
-    }
 
-    //Logo > Dentro del bloque b-chart
-    .logo {
-        position: absolute;
-        top: 0px;
-        right: 0px;
+        //Logo > Dentro del bloque b-chart
+        &__logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-        width: 95px;
-        height: 65px;
+            margin-top: 8px;
+
+            .logo_csic {
+                width: 136px;
+                height: 32px;
+
+                margin-left: 16px;
+            }
+
+            .logo_enr {                
+                width: 51.5px;
+                height: 53px;
+
+                margin-right: 16px;
+            }
+            
+        }
     }
 }
 
@@ -259,8 +273,6 @@ button {
 //Elementos genéricos en contenedores
 .b-title {
     width: 100%;
-    max-width: calc(100% - 100px);
-    min-height: 65px;
 
     .title {
         font-size: 1em;
